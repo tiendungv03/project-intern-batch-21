@@ -1,0 +1,56 @@
+<form [formGroup]="leadForm" (ngSubmit)="onSubmit()" class="min-h-screen bg-[#f6f7fb]">
+    <div class="w-full bg-white rounded shadow-sm">
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-center px-6 py-4 border-b">
+            <h2 class="text-lg font-semibold">Create lead</h2>
+
+            <button type="button" (click)="onCancel()">✕</button>
+        </div>
+
+        <!-- BODY -->
+        <div class="grid grid-cols-[240px_1fr]">
+
+            <!-- SIDEBAR -->
+            <aside class="p-4 border-r">
+                <app-create-lead-sidebar></app-create-lead-sidebar>
+            </aside>
+
+            <!-- FORM -->
+            <main class="p-6">
+                @if (showRequiredBanner) {
+                <div
+                    class="mt-[-10px] mb-[12px] rounded border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600">
+                    * Indicates required field.
+                </div>
+                }
+
+                                <div class="space-y-6">
+                                        <section id="main-contact">
+                                            <app-main-contact-form [formGroup]="mainContact"></app-main-contact-form>
+                                        </section>
+
+                                        <section id="personal-info">
+                                            <app-personal-info-form [formGroup]="personalInfo"></app-personal-info-form>
+                                        </section>
+
+                                        <section id="address">
+                                            <app-address-form [formGroup]="address"></app-address-form>
+                                        </section>
+                                </div>
+
+            </main>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="flex justify-end gap-3 px-6 py-4 border-t">
+            <button type="button" (click)="onCancel()" class="border px-4 py-2 rounded">
+                Cancel
+            </button>
+
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                Create
+            </button>
+        </div>
+    </div>
+</form>

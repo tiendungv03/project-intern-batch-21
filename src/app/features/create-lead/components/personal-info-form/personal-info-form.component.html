@@ -1,0 +1,241 @@
+<section [formGroup]="formGroup">
+    <h3 class="text-sm font-semibold text-[#344054] mt-[20px] mb-[20px]">
+        PERSONAL INFORMATION
+    </h3>
+
+    <!-- Profile photo upload section -->
+    <div class="mb-6 flex items-center gap-5">
+        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-[#F2F4F7]">
+            <i class="pi pi-image text-2xl text-[#98A2B3]"></i>
+        </div>
+
+        <div>
+            <p class="text-[13px] font-regular text-[#172B4D]">
+                Please upload profile photo in JPG or PNG format.
+            </p>
+            <p class="mt-1 text-[12px] text-[#758195]">
+                Ensure the file size does not exceed 2MB.
+            </p>
+
+            <button type="button"
+                class="mt-2 bg-white border border-[#d0d5dd] px-3 py-1 text-[13px] text-[#172B4D] rounded hover:bg-gray-50">
+                Upload
+            </button>
+        </div>
+    </div>
+
+    <!-- Same as main contact checkbox -->
+    <div class="mb-4 flex justify-end">
+        <label class="flex items-center gap-2 text-[13px] text-[#172B4D] font-medium">
+            <input type="checkbox" class="h-4 w-4 rounded border-[#D0D5DD]" />
+            Same as main contact
+        </label>
+    </div>
+
+
+    
+    <!-- Form fields - 3 column grid -->
+    <div class="grid grid-cols-3 gap-3">
+
+        <!-- Cellphone -->
+       <div class="w-full">
+  <div
+  class="h-11 rounded-md border px-3 flex flex-col justify-center"
+  [ngClass]="isInvalid('cellphone') ? 'border-[#e70202]' : 'border-[#D0D5DD]'"
+>
+
+        <label class=" block text-sm text-gray-500">
+            Cellphone 
+        </label>
+
+        <div class="flex items-center">
+
+            <div class="w-[65px] text-xs">
+                <p-dropdown
+  [options]="countriesa"
+  formControlName="cellphoneCode"
+  optionLabel="dialCode"
+  optionValue="dialCode"
+dropdownIcon="pi pi-sort-down-fill"
+  styleClass="phone-dropdown"
+></p-dropdown>
+            </div>
+
+            <div class="mx-2 h-2 w-px bg-gray-300"></div>
+
+            <p-inputMask
+                mask="999-999-9999"
+                formControlName="cellphone"
+                placeholder="000-000-0000"
+                [autoClear]="false"
+                styleClass="w-full border-none shadow-none outline-none text-[12px]"
+            ></p-inputMask>
+
+        </div>
+
+    </div>
+</div>
+
+        <!-- Work phone -->
+        <div class="w-full">
+            <div
+                class="h-11 rounded-md border px-3 flex flex-col justify-center"
+                [ngClass]="isInvalid('workPhone') ? 'border-[#e70202]' : 'border-[#D0D5DD]'"
+            >
+
+                <label class=" block text-sm text-gray-500">
+                    Work phone
+                </label>
+
+                <div class="flex items-center">
+
+                    <div class="w-[65px] text-xs">
+                        <p-dropdown
+                            [options]="countriesa"
+                            formControlName="workPhoneCode"
+                            optionLabel="dialCode"
+                            optionValue="dialCode"
+                            dropdownIcon="pi pi-sort-down-fill"
+                            styleClass="phone-dropdown"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="mx-2 h-2 w-px bg-gray-300"></div>
+
+                    <p-inputMask
+                        mask="999-999-9999"
+                        formControlName="workPhone"
+                        placeholder="000-000-0000"
+                        [autoClear]="false"
+                        styleClass="w-full border-none shadow-none outline-none text-[12px]"
+                    ></p-inputMask>
+
+                </div>
+
+            </div>
+        </div>
+
+        <input formControlName="email" placeholder="Email"
+            class="h-11 rounded-md border px-3 text-[13px] outline-none placeholder:text-[#758195]" />
+
+        <!-- Row 3: Gender, Date of birth, Marital status -->
+        <div class="relative">
+            <p-dropdown formControlName="gender" [options]="genderOptions" optionLabel="label" optionValue="value"
+                placeholder=" " dropdownIcon="pi pi-sort-down-fill" styleClass="w-full h-11 text-[13px]"
+                appendTo="body">
+            </p-dropdown>
+
+            <div *ngIf="!formGroup.get('gender')?.value"
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                Gender
+            </div>
+        </div>
+
+        <!-- <div class="relative">
+            <input formControlName="dateOfBirth" type="date" placeholder=" "
+                class="date-input h-11 w-full rounded-md border px-3 pr-8 text-[13px] outline-none appearance-none"
+                aria-label="Date of birth" />
+            <div *ngIf="!formGroup.get('dateOfBirth')?.value"
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                Date of birth
+            </div>
+            <i
+                class="pi pi-calendar pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-[#172B4D]"></i>
+        </div> -->
+
+        <div class="relative">
+            <input #dateInput formControlName="dateOfBirth" type="date" placeholder=" "
+                class="date-input h-11 w-full rounded-md border px-3 pr-10 text-[13px] outline-none appearance-none"
+                aria-label="Date of birth" />
+
+            <!-- Placeholder -->
+            <div *ngIf="!formGroup.get('dateOfBirth')?.value"
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                Date of birth
+            </div>
+
+            <!-- Calendar icon -->
+            <i class="pi pi-calendar absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[14px] text-[#172B4D]"
+                (click)="dateInput.showPicker()"></i>
+        </div>
+
+
+        <div class="relative">
+            <p-dropdown formControlName="maritalStatus" [options]="maritalStatusOptions" optionLabel="label"
+                optionValue="value" placeholder=" " dropdownIcon="pi pi-sort-down-fill"
+                styleClass="w-full h-11 text-[13px]" appendTo="body">
+            </p-dropdown>
+
+            <div *ngIf="!formGroup.get('maritalStatus')?.value"
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                Marital status
+            </div>
+        </div>
+
+        <!-- Row 4: Full width split into 2 equal columns -->
+        <div class="col-span-3 grid grid-cols-2 gap-3">
+            <!-- <div class="relative rounded-md border"
+                [ngClass]="isInvalid('leadStatus') ? 'border-red-500' : 'border-[#D0D5DD]'">
+                <p-dropdown formControlName="leadStatus" [options]="leadStatusOptions" optionLabel="label"
+                    optionValue="value" placeholder=" " dropdownIcon="pi pi-sort-down-fill"
+                    styleClass="w-full h-11 text-[14px]" appendTo="body"></p-dropdown>
+
+                <div *ngIf="!formGroup.get('leadStatus')?.value"
+                    class="pointer-events-none absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center gap-1 bg-white pr-2 text-[14px] text-[#758195]">
+                    <span>Lead status</span>
+                    <span class="font-bold text-red-500">*</span>
+                </div>
+            </div> -->
+
+            <!-- Lead status -->
+<!-- Lead status (floating label, dấu * đỏ, border đỏ khi invalid) -->
+<!-- Lead status: viền đỏ khi invalid, label giữ màu xám -->
+<div class="relative rounded-md border h-11"
+     [ngClass]="isInvalid('leadStatus') ? 'border-red-500' : 'border-[#D0D5DD]'">
+
+  <!-- Dropdown PrimeNG -->
+  <p-dropdown formControlName="leadStatus"
+              [options]="leadStatusOptions"
+              optionLabel="label"
+              optionValue="value"
+              dropdownIcon="pi pi-sort-down-fill"
+              styleClass="w-full h-full text-[14px]"
+              appendTo="body">
+  </p-dropdown>
+
+    <!-- Overlay label + dấu * đỏ, hiển thị chỉ khi control rỗng -->
+      <label *ngIf="!formGroup.get('leadStatus')?.value"
+          class="absolute left-3 top-2 px-1 bg-white text-[14px] flex items-center gap-1 whitespace-nowrap text-[#758195] pointer-events-none">
+        Lead status <span class="font-bold text-red-500">*</span>
+    </label>
+</div>
+
+
+
+            <div class="relative">
+                <p-dropdown formControlName="leadStage" [options]="leadStageOptions" optionLabel="label"
+                    optionValue="value" placeholder=" " dropdownIcon="pi pi-sort-down-fill"
+                    styleClass="w-full h-11 text-[13px]" appendTo="body">
+                </p-dropdown>
+
+                <div *ngIf="!formGroup.get('leadStage')?.value"
+                    class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                    Lead stage
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 5: Lead tags (spans 3 columns) -->
+        <div class="relative col-span-3">
+            <p-dropdown formControlName="leadTags" [options]="leadTagsOptions" optionLabel="label" optionValue="value"
+                placeholder=" " dropdownIcon="pi pi-sort-down-fill" styleClass="w-full h-11 text-[13px]"
+                appendTo="body">
+            </p-dropdown>
+
+            <div *ngIf="!formGroup.get('leadTags')?.value"
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 bg-white px-1 text-[14px] text-[#758195]">
+                Lead tags
+            </div>
+</div>
+    </div>
+</section>

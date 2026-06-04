@@ -1,0 +1,347 @@
+<h2 class="text-6 font-bold text-neutral-900 mb-4 font-roboto">
+  Lead information
+</h2>
+<div
+  class="bg-neutral-0 rounded-lg border border-neutral-400 shadow-sm p-8 font-roboto mb-8"
+>
+  <!-- MAIN CONTACT -->
+  <div class="mb-5">
+    <h3 class="text-5 font-bold text-neutral-800 mb-4">Main contact</h3>
+    <div class="grid grid-cols-3 gap-y-6 gap-x-12">
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Contact name</div>
+        <div class="text-4 font-medium text-neutral-900">{{ lead.name }}</div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Cellphone</div>
+        <div
+          class="text-4 font-medium text-neutral-900 flex items-center gap-2"
+        >
+          {{ lead.phone }}
+
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_phone_call.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Work phone</div>
+        <div
+          class="text-4 font-medium"
+          [class.text-neutral-400]="!lead.workPhone"
+          [class.text-neutral-900]="lead.workPhone"
+        >
+          {{ lead.workPhone || "---" }}
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="text-3 text-neutral-500 mb-1">Email</div>
+        <div
+          class="text-4 font-medium text-neutral-900 flex items-center gap-2"
+        >
+          {{ lead.email }}
+
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_mail.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t-2 border-dashed border-neutral-200 mb-5"></div>
+
+  <!-- PERSONAL INFORMATION -->
+  <div class="mb-5">
+    <h3 class="text-5 font-bold text-neutral-800 mb-4">Personal information</h3>
+    <div class="grid grid-cols-3 gap-y-8 gap-x-12">
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Full name</div>
+        <div class="text-4 font-medium text-neutral-900">{{ lead.name }}</div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Other name</div>
+        <div class="text-4 font-medium text-neutral-600">
+          {{ lead.otherName || "---" }}
+        </div>
+      </div>
+      <div></div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Cellphone</div>
+        <div
+          class="text-4 font-medium text-neutral-900 flex items-center gap-2"
+        >
+          {{ lead.phone }}
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_phone_call.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Work phone</div>
+        <div
+          class="text-4 font-medium"
+          [class.text-neutral-400]="!lead.workPhone"
+          [class.text-neutral-900]="lead.workPhone"
+        >
+          {{ lead.workPhone || "---" }}
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Email</div>
+        <div
+          class="text-4 font-medium text-neutral-900 flex items-center gap-2"
+        >
+          {{ lead.email }}
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_mail.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Gender</div>
+        <div class="text-4 font-medium text-neutral-900">{{ lead.gender }}</div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">DOB</div>
+        <div class="text-4 font-medium text-neutral-900">{{ lead.dob }}</div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Married status</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ lead.marriedStatus }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Lead ID</div>
+        <div
+          class="text-4 font-medium text-neutral-900 flex items-center gap-2"
+        >
+          {{ lead.id }}
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_duplicate.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Lead type</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ lead.leadType }}
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Lead status</div>
+        <div class="flex items-center gap-1">
+          <span
+            class="px-2 py-0.5 text-3 font-medium rounded bg-yellow-200 text-yellow-800"
+            >{{ lead.status }}</span
+          >
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_arrow_drop_down.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Policy status</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ lead.policyStatus }}
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Source</div>
+        <div class="text-4 font-medium text-neutral-900">{{ lead.source }}</div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-1">Subsource</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ lead.subSource }}
+        </div>
+      </div>
+
+      <div class="col-span-3">
+        <div class="text-3 text-neutral-500 mb-2">Lead tags</div>
+        <div class="flex items-center gap-2">
+          <span
+            *ngFor="let tag of lead.tags"
+            class="px-3 py-1 text-3 font-medium rounded bg-neutral-300 text-neutral-900"
+            >{{ tag }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t-2 border-dashed border-neutral-200 mb-5"></div>
+
+  <!-- ADDRESS -->
+  <div class="mb-5">
+    <h3 class="text-5 font-bold text-neutral-800 mb-4">Address</h3>
+    <div class="grid grid-cols-3 gap-x-12 gap-y-6">
+      <div>
+        <div class="flex items-center gap-2 text-3 text-neutral-500 mb-1">
+          Address
+
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_success.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+        <div class="text-4 font-medium text-neutral-900 flex items-end gap-2">
+          <span [innerHTML]="lead.address"></span>
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_duplicate.svg"
+            class="mb-1"
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2 text-3 text-neutral-500 mb-1">
+          Mailing address
+
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_error_circle.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+        <div class="text-4 font-medium text-neutral-900 flex items-end gap-2">
+          <span [innerHTML]="lead.mailingAddress"> </span>
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_duplicate.svg"
+            class="mb-1"
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t-2 border-dashed border-neutral-200 mb-5"></div>
+
+  <!-- OTHERS INFORMATION -->
+  <div>
+    <h3 class="text-5 font-bold text-neutral-800 mb-4">Others information</h3>
+    <div class="grid grid-cols-3 gap-y-8 gap-x-12">
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Owner</div>
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="lead.owner.avatarUrl"
+            [src]="lead.owner.avatarUrl"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!lead.owner.avatarUrl"
+            class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ lead.owner.initials }}
+          </div>
+          <span class="text-4 font-medium text-neutral-900">{{
+            lead.owner.name
+          }}</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">CSR</div>
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="lead.csr.avatarUrl"
+            [src]="lead.csr.avatarUrl"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!lead.csr.avatarUrl"
+            class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ lead.csr.initials }}
+          </div>
+          <span class="text-4 font-medium text-neutral-900">{{
+            lead.csr.name
+          }}</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Agent</div>
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="lead.agent.avatarUrl"
+            [src]="lead.agent.avatarUrl"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!lead.agent.avatarUrl"
+            class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ lead.agent.initials }}
+          </div>
+          <span class="text-4 font-medium text-neutral-900">{{
+            lead.agent.name
+          }}</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">SSN/Tax ID</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ identificationInfo.ssnTaxId }}
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Driver license</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ identificationInfo.driverLicense }}
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Green card number</div>
+        <div class="text-4 font-medium text-neutral-400">
+          {{ identificationInfo.greenCardNumber }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Added by</div>
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="lead.addedBy.avatarUrl"
+            [src]="lead.addedBy.avatarUrl"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!lead.addedBy.avatarUrl"
+            class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ lead.addedBy.initials }}
+          </div>
+          <span class="text-4 font-medium text-neutral-900">{{
+            lead.addedBy.name
+          }}</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-3 text-neutral-500 mb-2">Date added</div>
+        <div class="text-4 font-medium text-neutral-900">
+          {{ lead.dateAdded }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

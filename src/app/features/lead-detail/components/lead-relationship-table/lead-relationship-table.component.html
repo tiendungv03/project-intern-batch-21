@@ -1,0 +1,264 @@
+<div class="font-roboto">
+  <!-- TITLE & TOOLBAR -->
+  <h2 class="text-6 font-bold text-neutral-900 mb-7">Relationship</h2>
+  <div class="mb-6">
+    <div class="flex justify-between gap-4 mb-5">
+      <!-- Search -->
+      <div class="relative w-[50%]">
+        <input
+          type="text"
+          placeholder="Search"
+          [(ngModel)]="searchText"
+          class="h-10 w-full pl-10 pr-4 rounded-lg border border-neutral-300 outline-none focus:ring-2 focus:ring-primary-500 text-3 transition-all"
+        />
+
+        <svg-icon
+          src="/assets/icons/lead_detail/wl_search.svg"
+          class="text-neutral-400 absolute left-3 top-2.5 pointer-events-none"
+          [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+        ></svg-icon>
+      </div>
+
+      <div class="flex gap-4">
+        <!-- Sort -->
+        <button
+          (click)="toggleSort()"
+          class="h-10 px-4 rounded-lg border border-neutral-300 flex items-center gap-2 text-3 font-medium text-neutral-700 hover:bg-neutral-50 transition-colors"
+        >
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_switch_vertical.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+          <span *ngIf="sortAsc === null">Sort</span>
+          <span *ngIf="sortAsc === true">A → Z</span>
+          <span *ngIf="sortAsc === false">Z → A</span>
+        </button>
+
+        <!-- Filters -->
+        <button
+          class="h-10 px-4 rounded-lg border border-neutral-300 flex items-center gap-2 text-3 font-medium text-neutral-700 hover:bg-neutral-50 transition-colors"
+        >
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_filters_line.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+          Filters
+        </button>
+
+        <!-- Add -->
+        <button
+          (click)="showAddForm()"
+          class="h-10 px-4 rounded-lg bg-indigo-600 flex items-center gap-2 text-3 font-medium text-white hover:bg-indigo-700 transition-colors"
+        >
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_add.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+          Add
+        </button>
+      </div>
+    </div>
+
+    <!-- TABLE CONTAINER -->
+    <div
+      class="bg-white border border-neutral-300 rounded-sm overflow-hidden shadow-sm"
+    >
+      <table class="w-full text-left border-collapse">
+        <!-- HEADER -->
+        <thead class="bg-neutral-100 border-b border-neutral-200">
+          <tr>
+            <th class="px-6 py-4 text-3 font-bold text-neutral-800">
+              <button (click)="toggleSort()" class="flex items-center gap-2">
+                Name
+                <!-- <span *ngIf="sortAsc === true">▲</span>
+                <span *ngIf="sortAsc === false">▼</span> -->
+              </button>
+            </th>
+            <th class="px-6 py-4 text-3 font-bold text-neutral-800">Lead ID</th>
+            <th class="px-6 py-4 text-3 font-bold text-neutral-800">Type</th>
+            <th class="px-6 py-4 text-3 font-bold text-neutral-800">
+              Relationship
+            </th>
+            <th class="px-6 py-4 w-24"></th>
+          </tr>
+        </thead>
+
+        <!-- ADD/EDIT ROW -->
+        <tbody class="border-b border-neutral-200" *ngIf="isAddingNew">
+          <tr class="bg-white">
+            <td class="px-4 py-3">
+              <input
+                type="text"
+                placeholder="Name"
+                [(ngModel)]="newRelationship.name"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+            <td class="px-4 py-3">
+              <input
+                type="text"
+                placeholder="Lead ID"
+                [(ngModel)]="newRelationship.leadId"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+            <td class="px-4 py-3">
+              <input
+                type="text"
+                placeholder="Type"
+                [(ngModel)]="newRelationship.type"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+            <td class="px-4 py-3">
+              <input
+                type="text"
+                placeholder="Relationship"
+                [(ngModel)]="newRelationship.relationship"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+            <td class="px-4 py-3 text-center">
+              <div class="flex items-center justify-center gap-4">
+                <!-- Save add -->
+                <svg-icon
+                  (click)="saveNewRelationship()"
+                  src="/assets/icons/lead_detail/wl_save.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+
+                <!-- Cancel add -->
+                <svg-icon
+                  (click)="cancelAdd()"
+                  src="/assets/icons/lead_detail/wl_cancel.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- DATA ROWS -->
+        <tbody class="divide-y divide-neutral-200">
+          <tr
+            *ngFor="let rel of displayedRelationships; trackBy: trackByRel"
+            [ngClass]="{
+              'bg-blue-50': editingId === rel.id,
+              'hover:bg-neutral-50': editingId !== rel.id,
+            }"
+            class="transition-colors"
+          >
+            <!-- Name -->
+            <td class="px-6 py-4">
+              <div *ngIf="editingId !== rel.id" class="flex items-center gap-3">
+                <img
+                  [src]="rel.avatarUrl"
+                  class="w-8 h-8 rounded-full border border-neutral-200 object-cover"
+                />
+                <a
+                  href="#"
+                  class="text-3 font-medium text-blue-600 hover:underline"
+                  >{{ rel.name }}</a
+                >
+              </div>
+              <div *ngIf="editingId === rel.id">
+                <input
+                  type="text"
+                  [(ngModel)]="rel.name"
+                  class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+                />
+              </div>
+            </td>
+
+            <!-- Lead ID -->
+            <td class="px-6 py-4">
+              <div
+                *ngIf="editingId !== rel.id"
+                class="text-3 text-neutral-700 font-medium"
+              >
+                {{ rel.leadId }}
+              </div>
+              <input
+                *ngIf="editingId === rel.id"
+                type="text"
+                [(ngModel)]="rel.leadId"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+
+            <!-- Type -->
+            <td class="px-6 py-4">
+              <div *ngIf="editingId !== rel.id" class="text-3 text-neutral-700">
+                {{ rel.type }}
+              </div>
+              <input
+                *ngIf="editingId === rel.id"
+                type="text"
+                [(ngModel)]="rel.type"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+
+            <!-- Relationship -->
+            <td class="px-6 py-4">
+              <div *ngIf="editingId !== rel.id" class="text-3 text-neutral-700">
+                {{ rel.relationship }}
+              </div>
+              <input
+                *ngIf="editingId === rel.id"
+                type="text"
+                [(ngModel)]="rel.relationship"
+                class="w-full h-10 px-3 border border-neutral-200 rounded-lg text-3 outline-none focus:ring-1 focus:ring-primary-500"
+              />
+            </td>
+
+            <!-- Actions -->
+            <td class="px-6 py-4">
+              <div class="flex items-center justify-center gap-4">
+                <!-- Edit icon (show when not editing) -->
+                <svg-icon
+                  *ngIf="editingId !== rel.id"
+                  (click)="startEdit(rel)"
+                  src="/assets/icons/lead_detail/wl_edit.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+
+                <!-- Save icon (show when editing) -->
+                <svg-icon
+                  *ngIf="editingId === rel.id"
+                  (click)="saveEdit(rel)"
+                  src="/assets/icons/lead_detail/wl_save.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+
+                <!-- Delete icon -->
+                <svg-icon
+                  (click)="deleteRelationship(rel.id)"
+                  src="/assets/icons/lead_detail/wl_delete.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+
+                <!-- Cancel icon (show when editing) -->
+                <svg-icon
+                  *ngIf="editingId === rel.id"
+                  (click)="cancelEdit()"
+                  src="/assets/icons/lead_detail/wl_cancel.svg"
+                  class=""
+                  [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+                ></svg-icon>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

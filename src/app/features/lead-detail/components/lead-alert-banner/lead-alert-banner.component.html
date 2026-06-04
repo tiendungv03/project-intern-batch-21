@@ -1,0 +1,18 @@
+<app-message-banner
+  type="danger"
+  icon="/assets/icons/lead_detail/wl_error_circle.svg"
+>
+  <div banner-content>
+    <span class="font-medium">Heads up,</span>
+    <span> her birthday is coming up on November 10th!</span>
+  </div>
+
+  <button
+    banner-action
+    class="text-3 text-blue-600 font-medium flex items-center gap-1 hover:underline"
+    (click)="onViewMore()"
+  >
+    View more
+    <i class="pi pi-chevron-right w-3 h-3"></i>
+  </button>
+</app-message-banner>

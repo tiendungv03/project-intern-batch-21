@@ -1,0 +1,141 @@
+<!-- Overlay -->
+<div
+  id="task-modal-overlay"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+  (click)="onOverlayClick($event)"
+>
+  <!-- Modal Card -->
+  <div class="relative w-full max-w-lg rounded-2xl bg-white shadow-2xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between bg-emerald-600 px-6 py-4">
+      <div class="flex items-center gap-2">
+        <i class="pi pi-plus-circle text-white text-lg"></i>
+        <h2 class="text-lg font-semibold text-white">Create New Task</h2>
+      </div>
+      <button
+        id="task-modal-close"
+        type="button"
+        (click)="onClose()"
+        class="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition"
+      >
+        <i class="pi pi-times text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Form Body -->
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="px-6 py-5 flex flex-col gap-4">
+
+      <!-- Task Title -->
+      <div class="flex flex-col gap-1">
+        <label class="text-[13px] font-semibold text-[#172B4D]">Task Title <span class="text-red-500">*</span></label>
+        <input
+          id="task-modal-title"
+          formControlName="title"
+          type="text"
+          placeholder="e.g. Call customer to confirm appointment"
+          class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition"
+          [class.border-red-400]="submitted && f['title'].errors"
+        />
+        <span *ngIf="submitted && f['title'].errors" class="text-[12px] text-red-500">Task title is required (min 3 chars)</span>
+      </div>
+
+      <!-- Lead -->
+      <div class="flex flex-col gap-1">
+        <label class="text-[13px] font-semibold text-[#172B4D]">Lead <span class="text-red-500">*</span></label>
+        <select
+          id="task-modal-lead"
+          formControlName="leadId"
+          class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition cursor-pointer"
+          [class.border-red-400]="submitted && f['leadId'].errors"
+        >
+          <option value="">Select a Lead...</option>
+          <option *ngFor="let lead of leadOptions" [value]="lead.id">{{ lead.name }}</option>
+        </select>
+        <span *ngIf="submitted && f['leadId'].errors" class="text-[12px] text-red-500">Please select a Lead</span>
+      </div>
+
+      <!-- Type + Priority (2 cols) -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-[13px] font-semibold text-[#172B4D]">Task Type</label>
+          <select
+            id="task-modal-type"
+            formControlName="type"
+            class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition cursor-pointer"
+          >
+            <option *ngFor="let t of typeOptions" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-[13px] font-semibold text-[#172B4D]">Priority</label>
+          <select
+            id="task-modal-priority"
+            formControlName="priority"
+            class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition cursor-pointer"
+          >
+            <option *ngFor="let p of priorityOptions" [value]="p">{{ p }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Due Date + Status (2 cols) -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-1">
+          <label class="text-[13px] font-semibold text-[#172B4D]">Due Date <span class="text-red-500">*</span></label>
+          <input
+            id="task-modal-duedate"
+            formControlName="dueDate"
+            type="date"
+            class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition"
+            [class.border-red-400]="submitted && f['dueDate'].errors"
+          />
+          <span *ngIf="submitted && f['dueDate'].errors" class="text-[12px] text-red-500">Due date is required</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-[13px] font-semibold text-[#172B4D]">Status</label>
+          <select
+            id="task-modal-status"
+            formControlName="status"
+            class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition cursor-pointer"
+          >
+            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="flex flex-col gap-1">
+        <label class="text-[13px] font-semibold text-[#172B4D]">Notes <span class="text-[12px] font-normal text-gray-400">(optional)</span></label>
+        <textarea
+          id="task-modal-notes"
+          formControlName="notes"
+          rows="3"
+          placeholder="Add any additional notes..."
+          class="rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm outline-none focus:border-emerald-400 transition resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-3 pt-1">
+        <button
+          id="task-modal-cancel"
+          type="button"
+          (click)="onClose()"
+          class="h-9 rounded-lg border border-gray-200 px-5 text-sm text-gray-600 hover:bg-gray-50 transition"
+        >
+          Cancel
+        </button>
+        <button
+          id="task-modal-submit"
+          type="submit"
+          class="h-9 rounded-lg bg-emerald-600 px-5 text-sm font-semibold text-white hover:bg-emerald-700 transition shadow-sm"
+        >
+          <i class="pi pi-check mr-1 text-[12px]"></i>
+          Save Task
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

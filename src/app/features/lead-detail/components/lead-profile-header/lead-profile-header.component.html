@@ -1,0 +1,89 @@
+<!-- BREADCRUMBS -->
+<div class="flex items-center gap-2 mb-4 text-3 text-neutral-500">
+  <span>Lead</span>
+  <span class="text-neutral-300">/</span>
+  <span class="text-neutral-800 font-medium font-roboto">{{ lead.name }}</span>
+</div>
+
+<div class="rounded-2xl">
+  <!-- BANNER -->
+  <div class="">
+    <div class="h-40 rounded-lg overflow-hidden relative">
+      <img
+        [src]="lead.bannerUrl"
+        class="w-full h-full object-cover"
+        alt="Profile banner"
+      />
+    </div>
+  </div>
+
+  <!-- PROFILE CONTENT -->
+  <div class="px-8 pb-6">
+    <div class="flex items-end justify-between -mt-10">
+      <!-- LEFT: Avatar + Name Info -->
+      <div class="flex items-end gap-6">
+        <!-- AVATAR -->
+        <div class="relative">
+          <img
+            [src]="lead.avatarUrl"
+            class="w-30 h-30 rounded-full border-4 border-neutral-0 shadow-sm object-cover"
+            alt="Profile avatar"
+          />
+        </div>
+
+        <!-- INFO -->
+        <div class="pb-2">
+          <div class="flex items-center gap-3">
+            <h1 class="text-7 font-bold text-neutral-900 font-roboto">
+              {{ lead.name }}
+            </h1>
+            @if (lead.otherName) {
+              <span class="text-neutral-700 text-3 font-roboto"
+                >({{ lead.otherName }})</span
+              >
+            }
+            <span
+              class="px-2 py-0.5 text-2 font-medium rounded-sm bg-[#FFE485] text-[#983908] font-roboto"
+            >
+              {{ lead.status }}
+            </span>
+          </div>
+
+          <div
+            class="text-3 text-[#172B4D] mt-1 flex items-center gap-2 font-roboto"
+          >
+            <span>{{ lead.gender }}</span>
+            <span class="text-neutral-400">•</span>
+            <span>{{ lead.age }} years old</span>
+            <span class="text-neutral-400">•</span>
+            <span>{{ lead.leadType }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Action Buttons -->
+      <div class="flex items-center gap-2 pb-2">
+        <button
+          class="px-4 py-2 border border-neutral-300 rounded-md text-3 font-medium text-neutral-800 hover:bg-neutral-100 transition-colors font-roboto"
+        >
+          Send SMS
+        </button>
+        <button
+          class="px-4 py-2 border border-neutral-300 rounded-md text-3 font-medium text-neutral-800 hover:bg-neutral-100 transition-colors font-roboto"
+        >
+          Send email
+        </button>
+        <button
+          class="px-4 py-2 bg-green-600 rounded-md text-3 font-medium text-neutral-0 hover:bg-green-700 transition-colors font-roboto"
+        >
+          Make call
+        </button>
+        <button
+          class="p-2 border border-neutral-300 rounded-md text-neutral-800 hover:bg-neutral-100 transition-colors"
+        >
+          <i class="pi pi-ellipsis-v w-5 h-5 text-lg font-semibold"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

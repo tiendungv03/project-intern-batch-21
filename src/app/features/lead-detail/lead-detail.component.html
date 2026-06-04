@@ -1,0 +1,30 @@
+<div class="bg-white min-h-screen p-6 font-roboto">
+  <div *ngIf="lead" class="w-[85%] mx-auto">
+    <app-lead-profile-header [lead]="lead" />
+
+    <app-lead-alert-banner />
+
+    <app-lead-detail-tabs />
+
+    <div class="grid grid-cols-12 gap-12 mt-6">
+      <!-- LEFT -->
+      <div class="col-span-8 space-y-8">
+        <app-lead-information-card [lead]="lead" />
+        <app-lead-relationship-table [relationships]="relationships" />
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-span-4">
+        <app-lead-activity-sidebar
+          [note]="latestNote"
+          [task]="nextTask"
+          [comment]="recentComment"
+        />
+      </div>
+    </div>
+
+    <div class="card flex justify-content-center mt-10">
+      <!-- PrimeNG Dropdown remains as requested in previous state -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+<div class="space-y-8 font-roboto">
+  <!-- LATEST NOTE -->
+  <div>
+    <h3 class="text-5 font-semibold text-neutral-900 mb-4">Latest note</h3>
+    <div
+      class="bg-neutral-0 rounded-xs border border-neutral-200 p-5 relative shadow-sm"
+    >
+      <div class="flex items-center justify-between mb-3">
+        <span
+          class="px-2 py-0.5 text-base font-bold rounded bg-orange-100 text-orange-700"
+          >{{ note.badge }}</span
+        >
+        <div class="flex items-center gap-3 text-neutral-400">
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_pin.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+
+          <button class="text-neutral-400">
+            <div class="pi pi-ellipsis-h text-[#172B4D]"></div>
+          </button>
+        </div>
+      </div>
+      <p class="text-3 text-neutral-800 leading-relaxed mb-4">
+        {{ note.content }}
+      </p>
+      <div class="text-[11px] text-neutral-400 mb-4 uppercase tracking-wider">
+        {{ note.aigCode }}
+      </div>
+      <div class="flex items-center justify-between text-[11px]">
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="note.author.avatarUrl"
+            [src]="note.author.avatarUrl"
+            class="w-5 h-5 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!note.author.avatarUrl"
+            class="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold"
+          >
+            {{ note.author.initials }}
+          </div>
+          <span class="font-bold text-neutral-900">{{ note.author.name }}</span>
+          <span class="text-neutral-300">•</span>
+          <a href="#" class="text-blue-600 hover:underline"
+            >{{ note.appendsCount }} appends</a
+          >
+        </div>
+        <span class="text-neutral-400">{{ note.date }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT TASKS -->
+  <div>
+    <h3 class="text-4 font-bold text-neutral-900 mb-4">Next tasks</h3>
+    <div class="bg-blue-50 rounded-xl border-l-4 border-blue-600 p-5 shadow-sm">
+      <div class="flex items-start justify-between mb-3">
+        <h4 class="text-3 font-medium text-neutral-900">{{ task.title }}</h4>
+        <button class="text-neutral-400">
+          <div class="pi pi-ellipsis-h text-[#172B4D]"></div>
+        </button>
+      </div>
+      <div class="flex items-center gap-2 text-2 text-neutral-600 mb-3">
+        <svg
+          class="w-4 h-4 text-neutral-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+        <span>{{ task.time }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <img
+          *ngIf="task.assignee.avatarUrl"
+          [src]="task.assignee.avatarUrl"
+          class="w-5 h-5 rounded-full object-cover"
+        />
+        <div
+          *ngIf="!task.assignee.avatarUrl"
+          class="w-5 h-5 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-[10px] font-bold"
+        >
+          {{ task.assignee.initials }}
+        </div>
+        <span class="text-[11px] font-medium text-neutral-900">{{
+          task.assignee.name
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT COMMENTS -->
+  <div>
+    <h3 class="text-4 font-semibold text-neutral-900 mb-4">Recent comments</h3>
+    <div
+      class="bg-neutral-0 rounded-xl border border-neutral-200 p-5 shadow-sm"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <img
+            *ngIf="comment.author.avatarUrl"
+            [src]="comment.author.avatarUrl"
+            class="w-6 h-6 rounded-full object-cover"
+          />
+          <div
+            *ngIf="!comment.author.avatarUrl"
+            class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ comment.author.initials }}
+          </div>
+          <span class="text-[11px] font-bold text-neutral-900 uppercase">{{
+            comment.author.name
+          }}</span>
+          <span class="text-neutral-400 text-[11px]">{{ comment.date }}</span>
+        </div>
+        <div class="flex items-center gap-2 text-neutral-400">
+          <svg-icon
+            src="/assets/icons/lead_detail/wl_pin.svg"
+            class=""
+            [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+          ></svg-icon>
+
+          <button class="text-neutral-400">
+            <div class="pi pi-ellipsis-h text-[#172B4D]"></div>
+          </button>
+        </div>
+      </div>
+      <p class="text-3 text-neutral-800 leading-relaxed mb-3">
+        {{ comment.content }}
+      </p>
+      <a href="#" class="text-[11px] text-blue-600 hover:underline"
+        >{{ comment.appendsCount }} appends</a
+      >
+    </div>
+  </div>
+</div>

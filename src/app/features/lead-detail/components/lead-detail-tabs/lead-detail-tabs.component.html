@@ -1,0 +1,15 @@
+<div class="mt-6 border-b border-neutral-200">
+  <div class="flex gap-8">
+    <button
+      *ngFor="let tab of tabs"
+      (click)="selectTab(tab.id)"
+      [ngClass]="{
+        'pb-4 text-3 font-medium font-roboto transition-colors': true,
+        'text-blue-600 border-b-2 border-blue-600': activeTab === tab.id,
+        'text-[#172B4D] hover:text-neutral-700': activeTab !== tab.id,
+      }"
+    >
+      {{ tab.label }}
+    </button>
+  </div>
+</div>

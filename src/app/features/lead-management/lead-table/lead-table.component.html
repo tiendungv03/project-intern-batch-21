@@ -1,87 +1,109 @@
-<div class="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-white shadow-sm">
-    <p-table [value]="displayedLeads" [(selection)]="selectedLeads" dataKey="leadId" responsiveLayout="scroll"
-        [scrollable]="true" scrollHeight="flex" [paginator]="false" styleClass="lead-table">
+<div
+  class="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-white shadow-sm"
+>
+  <p-table
+    [value]="displayedLeads"
+    [(selection)]="selectedLeads"
+    dataKey="leadId"
+    responsiveLayout="scroll"
+    [scrollable]="true"
+    scrollHeight="flex"
+    [paginator]="false"
+    styleClass="lead-table"
+  >
+    <ng-template pTemplate="header">
+      <tr class="text-sm text-[#172B4D] font-semibold">
+        <th class="w-[48px]">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th style="min-width: 140px">Owner</th>
+        <th style="min-width: 220px">Lead</th>
+        <th style="min-width: 120px">Lead ID</th>
+        <th style="min-width: 120px">Lead type</th>
+        <th style="min-width: 140px">Status</th>
+        <th style="min-width: 160px">Lead stage</th>
+        <th style="min-width: 180px">Contact name</th>
+        <th style="min-width: 160px">Cellphone</th>
+        <th style="min-width: 100px">Work</th>
+        <th style="min-width: 120px"></th>
+      </tr>
+    </ng-template>
 
-        <ng-template pTemplate="header">
-            <tr class="text-sm text-[#172B4D] font-semibold">
-                <th class="w-[48px]">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th style="min-width: 140px">Owner</th>
-                <th style="min-width: 220px">Lead</th>
-                <th style="min-width: 120px">Lead ID</th>
-                <th style="min-width: 120px">Lead type</th>
-                <th style="min-width: 140px">Status</th>
-                <th style="min-width: 160px">Lead stage</th>
-                <th style="min-width: 180px">Contact name</th>
-                <th style="min-width: 160px">Cellphone</th>
-                <th style="min-width: 100px">Work</th>
-                <th style="min-width: 120px"></th>
-            </tr>
-        </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr class="text-sm text-[#172B4D]">
+        <!-- 1. Cột Checkbox -->
+        <td>
+          <p-tableCheckbox [value]="item"></p-tableCheckbox>
+        </td>
 
-        <ng-template pTemplate="body" let-item>
-            <tr class="text-sm text-[#172B4D]">
-                <!-- 1. Cột Checkbox -->
-                <td>
-                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                </td>
+        <!-- 2. Cột Owner ) -->
+        <td>{{ item.owner }}</td>
 
-                <!-- 2. Cột Owner ) -->
-                <td>{{ item.owner }}</td>
+        <!-- 3. Cột Lead -->
+        <td>
+          <div class="flex items-center gap-2">
+            <div class="flex h-7 w-7 flex-shrink-0 items-center justify-center">
+              <img
+                *ngIf="item.avatar && item.showAvatar"
+                [src]="item.avatar"
+                class="h-7 w-7 rounded-full object-cover"
+              />
 
-                <!-- 3. Cột Lead -->
-                <td>
-                    <div class="flex items-center gap-2">
-                        <div class="flex h-7 w-7 flex-shrink-0 items-center justify-center">
-                            <img *ngIf="item.avatar && item.showAvatar" [src]="item.avatar"
-                                class="h-7 w-7 rounded-full object-cover" />
+              <div
+                *ngIf="!item.avatar && item.showAvatar"
+                class="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-[10px] font-semibold text-purple-600"
+              >
+                {{ getInitials(item.lead) }}
+              </div>
 
-                            <div *ngIf="!item.avatar && item.showAvatar"
-                                class="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-[10px] font-semibold text-purple-600">
-                                {{ getInitials(item.lead) }}
-                            </div>
+              <div *ngIf="!item.showAvatar" class="h-7 w-7"></div>
+            </div>
 
-                            <div *ngIf="!item.showAvatar" class="h-7 w-7"></div>
-                        </div>
+            <span
+              class="font-medium text-[#2563eb] hover:underline cursor-pointer"
+              (click)="openLead(item.leadId)"
+            >
+              {{ item.lead }}
+            </span>
+          </div>
+        </td>
 
+        <td>{{ item.leadId }}</td>
+        <td>{{ item.leadType }}</td>
 
-                        <span class="font-medium text-[#2563eb] hover:underline cursor-pointer">
-                            {{ item.lead }}
-                        </span>
-                    </div>
-                </td>
+        <!-- 6. Cột Status -->
+        <td>
+          <span
+            class="rounded px-3 py-1 text-sm font-medium"
+            [ngClass]="getStatusClass(item.status)"
+          >
+            {{ item.status }}
+          </span>
+        </td>
 
+        <td>{{ item.stage }}</td>
+        <td>{{ item.contactName }}</td>
+        <td>{{ item.cellphone }}</td>
+        <td>{{ item.work }}</td>
 
-                <td>{{ item.leadId }}</td>
-                <td>{{ item.leadType }}</td>
+        <!-- 11. Cột Actions -->
+        <td>
+          <div class="flex items-center gap-3">
+            <button class="flex items-center justify-center">
+              <svg-icon
+                src="assets/icons/filter-bar/file-search.svg"
+                [svgStyle]="{ width: '32px', height: '32px', fill: '#22c55e' }"
+              >
+              </svg-icon>
+            </button>
 
-                <!-- 6. Cột Status -->
-                <td>
-                    <span class="rounded px-3 py-1 text-sm font-medium" [ngClass]="getStatusClass(item.status)">
-                        {{ item.status }}
-                    </span>
-                </td>
-
-                <td>{{ item.stage }}</td>
-                <td>{{ item.contactName }}</td>
-                <td>{{ item.cellphone }}</td>
-                <td>{{ item.work }}</td>
-
-                <!-- 11. Cột Actions -->
-                <td>
-                    <div class="flex items-center gap-3">
-                        <button class="flex items-center justify-center">
-                            <svg-icon src="assets/icons/filter-bar/file-search.svg"
-                                [svgStyle]="{ width: '32px', height: '32px', fill: '#22c55e' }">
-                            </svg-icon>
-                        </button>
-
-                        <i class="pi pi-ellipsis-v cursor-pointer text-gray-500 m-0"></i>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-    <app-lead-pagination (pageChange)="onPageChange($event)"></app-lead-pagination>
+            <i class="pi pi-ellipsis-v cursor-pointer text-gray-500 m-0"></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <app-lead-pagination
+    (pageChange)="onPageChange($event)"
+  ></app-lead-pagination>
 </div>

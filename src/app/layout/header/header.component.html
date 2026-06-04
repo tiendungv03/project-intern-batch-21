@@ -1,25 +1,15 @@
-<header
-  class="flex justify-between items-center w-full min-h-17 right-3 rounded-xl bg-white/70"
->
+<header class="flex justify-between items-center w-full min-h-17 right-3 rounded-xl bg-white/70">
   <div class="">
     <h1 class="relative text-black font-bold text-xl left-3">Properties</h1>
   </div>
   <div class="flex items-center">
-    <div
-      class="bg-white rounded-lg py-4 pl-4 mr-2 border-slate-300 border-[1px]"
-    >
+    <div class="bg-white rounded-lg py-4 pl-4 mr-2 border-slate-300 border-[1px]">
       <input type="search" class="" placeholder="Type Client Name or ID" />
       <i class="pi pi-search relative right-4 top-[2px] text-slate-500"></i>
     </div>
-    <div
-      class="flex items-center bg-white opacity-100 mr-2 py-2 rounded-lg border-slate-300 border-[1px]"
-    >
+    <div class="flex items-center bg-white opacity-100 mr-2 py-2 rounded-lg border-slate-300 border-[1px]">
       <div class="flex-none mx-2">
-        <img
-          src="{{ userData.img_Avatar }}"
-          alt="No img"
-          class="w-10 h-10 rounded-md object-cover"
-        />
+        <img src="{{ userData.img_Avatar }}" alt="No img" class="w-10 h-10 rounded-md object-cover" />
       </div>
 
       <div class="flex flex-1 items-center">
@@ -28,7 +18,7 @@
           <p class="text-slate-400">{{ userData.email }}</p>
         </div>
         <div class="mr-3">
-          <i class="pi pi-chevron-down"></i>
+          <i class="pi pi-sort-down-fill"></i>
         </div>
       </div>
     </div>

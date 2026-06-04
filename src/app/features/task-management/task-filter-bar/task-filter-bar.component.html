@@ -1,0 +1,51 @@
+<div class="flex flex-wrap items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm">
+
+  <!-- Status Pills -->
+  <div class="flex items-center gap-2 flex-wrap">
+    <ng-container *ngFor="let opt of statusOptions">
+      <button
+        [id]="'task-filter-status-' + opt.value"
+        (click)="setStatus(opt.value)"
+        [ngClass]="[
+          'inline-flex h-8 items-center gap-2 rounded-full border px-3 text-[13px] font-medium transition',
+          filter.status === opt.value
+            ? opt.color
+            : 'border-gray-200 text-gray-500 bg-white hover:border-emerald-400 hover:text-emerald-600'
+        ]"
+      >
+        <span>{{ opt.label }}</span>
+      </button>
+    </ng-container>
+  </div>
+
+  <!-- Divider -->
+  <div class="h-6 w-px bg-gray-200"></div>
+
+  <!-- Priority Dropdown -->
+  <select
+    id="task-filter-priority"
+    (change)="setPriority($event)"
+    class="h-8 rounded-lg border border-gray-200 px-3 text-[13px] text-gray-600 outline-none hover:border-emerald-400 transition cursor-pointer"
+  >
+    <option *ngFor="let opt of priorityOptions" [value]="opt.value">{{ opt.label }}</option>
+  </select>
+
+  <!-- Type Dropdown -->
+  <select
+    id="task-filter-type"
+    (change)="setType($event)"
+    class="h-8 rounded-lg border border-gray-200 px-3 text-[13px] text-gray-600 outline-none hover:border-emerald-400 transition cursor-pointer"
+  >
+    <option *ngFor="let opt of typeOptions" [value]="opt.value">{{ opt.label }}</option>
+  </select>
+
+  <!-- Reset -->
+  <button
+    id="task-filter-reset"
+    (click)="resetFilters()"
+    class="px-2 text-[13px] text-gray-400 hover:text-emerald-600 transition"
+  >
+    Reset
+  </button>
+
+</div>

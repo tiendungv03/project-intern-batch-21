@@ -1,0 +1,148 @@
+<section [formGroup]="formGroup">
+    <h3 class="text-sm font-semibold text-[#344054] mb-[16px]">MAIN CONTACT</h3>
+
+    <div class="grid grid-cols-2 gap-3">
+
+        <!-- Contact name -->
+        <div class="h-11 rounded-md border flex items-center"
+            [ngClass]="isInvalid('contactName') ? 'border-[#e70202]' : 'border-[#D0D5DD]'">
+
+            <div class="relative w-full">
+                <input id="contact" formControlName="contactName" type="text" placeholder=" "
+                    class="h-11 w-full rounded-md border-none bg-transparent text-[13px] outline-none placeholder:text-transparent pl-3" />
+
+                <label *ngIf="!formGroup.get('contactName')?.value" for="contact"
+                    class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-[#667085]">
+                    Contact name <span class="text-red-500">*</span>
+                </label>
+            </div>
+
+        </div>
+
+        
+        <!--CELLPHONE-->
+     <div class="w-full">
+  <div
+  class="h-11 rounded-md border px-3 flex flex-col justify-center"
+  [ngClass]="isInvalid('cellphone') ? 'border-[#e70202]' : 'border-[#D0D5DD]'"
+>
+
+        <label class=" block text-sm text-gray-500">
+            Cellphone <span class="text-red-500">*</span>
+        </label>
+
+        <div class="flex items-center">
+
+            <div class="w-[65px] text-xs">
+                <p-dropdown
+  [options]="countriesa"
+  formControlName="cellphoneCode"
+  optionLabel="dialCode"
+  optionValue="dialCode"
+dropdownIcon="pi pi-sort-down-fill"
+  styleClass="phone-dropdown"
+></p-dropdown>
+            </div>
+
+            <div class="mx-2 h-2 w-px bg-gray-300"></div>
+
+            <p-inputMask
+                mask="999-999-9999"
+                formControlName="cellphone"
+                placeholder="000-000-0000"
+                [autoClear]="false"
+                styleClass="w-full border-none shadow-none outline-none"
+            ></p-inputMask>
+
+        </div>
+
+    </div>
+</div>
+
+
+        <!-- Cellphone
+        <div class="h-11 rounded-md border px-3 flex flex-col justify-center"
+            [class.border-red-500]="isInvalid('cellphone')" [ngClass]="{'border-[#e70202]': isInvalid('cellphone')}">
+
+            <div class="text-[11px] leading-none text-[#758195] flex items-center gap-1">
+                <span>Cellphone</span>
+                <span class="text-red-500 text-[13px] font-bold">*</span>
+            </div>
+
+            <div class="flex items-center gap-2 mt-[2px] relative">
+                <button type="button" (click)="toggleCellphoneDropdown()"
+                    class="text-xs font-medium text-[#172B4D] flex items-center gap-1 hover:cursor-pointer focus:outline-none">
+                    <span>({{ selectedCellphoneCode }})</span>
+                    <i class="pi pi-sort-down-fill text-[6px] text-[#98A2B3]"></i>
+                </button>
+                <input formControlName="cellphone" placeholder="000-000-0000"
+                    class="h-6 flex-1 bg-transparent text-[13px] text-[#98A2B3] outline-none" />
+
+                <div *ngIf="openCellphoneDropdown"
+                    class="absolute bottom-full left-0 mb-2 border border-[#e0e0e0] rounded-md bg-white shadow-lg z-10 w-40">
+                    <button *ngFor="let country of countries" type="button" (click)="selectCellphoneCode(country.code)"
+                        class="block w-full text-left px-3 py-2 text-xs hover:bg-gray-100 text-[#344054]">
+                        {{ country.code }} {{ country.name }}
+                    </button>
+                </div>
+            </div>
+
+        </div> -->
+
+       
+
+
+       
+
+        <!-- Email -->
+        <input formControlName="email" placeholder="Email"
+            class="h-11 w-full rounded-md border px-3 pr-6 text-[13px] outline-none placeholder:text-[#758195]" />
+
+
+        <!-- Work phone -->
+        <div class="w-full">
+            <div
+                class="h-11 rounded-md border px-3 flex flex-col justify-center"
+                [ngClass]="isInvalid('workPhone') ? 'border-[#e70202]' : 'border-[#D0D5DD]'"
+            >
+
+                <label class=" block text-sm text-gray-500">
+                    Work phone
+                </label>
+
+                <div class="flex items-center">
+
+                    <div class="w-[65px] text-xs">
+                        <p-dropdown
+                            [options]="countriesa"
+                            formControlName="workPhoneCode"
+                            optionLabel="dialCode"
+                            optionValue="dialCode"
+                            dropdownIcon="pi pi-sort-down-fill"
+                            styleClass="phone-dropdown"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="mx-2 h-2 w-px bg-gray-300"></div>
+
+                    <p-inputMask
+                        mask="999-999-9999"
+                        formControlName="workPhone"
+                        placeholder="000-000-0000"
+                        [autoClear]="false"
+                        styleClass="w-full border-none shadow-none outline-none"
+                    ></p-inputMask>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    
+
+
+
+</section>

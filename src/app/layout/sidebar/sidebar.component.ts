@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 
@@ -22,14 +22,21 @@ export class SidebarComponent {
     {
       title: 'Customers',
       icon: 'assets/icons/sidebar/user.svg',
-      route: '/customers',
+      route: '/lead-management',
       type: 'svg',
       badge: 0,
     },
     {
       title: 'Calendar',
       icon: 'pi pi-calendar',
-      route: '/reports',
+      route: '/calendar',
+      type: 'class',
+      badge: 0,
+    },
+    {
+      title: 'Tasks',
+      icon: 'pi pi-check-square',
+      route: '/tasks',
       type: 'class',
       badge: 0,
     },

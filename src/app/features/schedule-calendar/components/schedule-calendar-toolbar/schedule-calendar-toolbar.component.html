@@ -1,22 +1,10 @@
 <div class="">
   <div class="flex justify-between">
     <div class="w-[330px]">
-      <form [formGroup]="toolbarForm">
-        <app-form-control>
-          <div
-            class="flex items-center px-3 h-9 rounded-md border border-gray-300 bg-white shadow-sm"
-          >
-            <i class="pi pi-search text-gray-400 mr-2"></i>
-
-            <input
-              formControlName="search"
-              type="text"
-              placeholder="Search by name, ID, or phone number"
-              class="w-full outline-none text-sm placeholder-gray-400"
-            />
-          </div>
-        </app-form-control>
-      </form>
+      <app-search-input
+        placeholder="Search by name, ID, or phone number"
+        (searchChange)="onSearch($event)"
+      ></app-search-input>
     </div>
     <div class="flex items-center gap-2">
       <!-- Filters -->
@@ -87,6 +75,7 @@
       <!-- Create -->
       <button
         type="button"
+        (click)="onCreate()"
         class="inline-flex h-9 items-center gap-2 rounded-md bg-brand-primary px-3 text-[15px] font-medium text-white shadow-sm transition-all duration-200 hover:bg-green-600"
       >
         <i class="pi pi-plus-circle text-sm"></i>

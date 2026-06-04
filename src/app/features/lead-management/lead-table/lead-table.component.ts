@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
@@ -19,87 +20,88 @@ import { LeadPaginationComponent } from './lead-pagination/lead-pagination.compo
   styleUrl: './lead-table.component.scss',
 })
 export class LeadTableComponent implements OnInit {
+  constructor(private router: Router) {}
   leads: any[] = [];
   selectedLeads: any[] = [];
   displayedLeads: any[] = [];
-currentPage = 0;
-rows = 15;
+  currentPage = 0;
+  rows = 15;
 
   ngOnInit() {
-   const baseData = [
-  {
-    owner: 'John Doe',
-    lead: 'Sean Lewis (Huynh Tran)',
-    avatar: 'https://i.pravatar.cc/40?img=1',
-    showAvatar: true,
-    leadType: 'Prospect',
-    status: 'Cellphone',
-    stage: 'Cellphone',
-    contactName: 'Sean Lewis',
-    cellphone: '(872) 808-2228',
-    work: '(872)',
-  },
-  {
-    owner: 'Mary Johnson',
-    lead: 'Heather Phelps (Hanh Nguyen)',
-    avatar: null,
-    showAvatar: false,
-    leadType: 'Prospect',
-    status: 'Interest',
-    stage: 'Cellphone',
-    contactName: 'Hanh Nguyen',
-    cellphone: '(431) 863-3901',
-    work: '(431)',
-  },
-  {
-    owner: 'Robert White',
-    lead: 'Alice Scott (Anh Pham)',
-    avatar: 'https://i.pravatar.cc/40?img=3',
-    showAvatar: true,
-    leadType: 'Customer',
-    status: 'Follow now',
-    stage: 'Quote & Agent',
-    contactName: 'Alice Scott',
-    cellphone: '(515) 540-5844',
-    work: '(515)',
-  },
-  {
-    owner: 'David Lee',
-    lead: 'Kimberly Harper (Kim Phan)',
-    avatar: null,
-    showAvatar: true,
-    leadType: 'Customer',
-    status: 'Follow later',
-    stage: 'Get Quote',
-    contactName: 'Kim Phan',
-    cellphone: '(300) 284-5608',
-    work: '(300)',
-  },
-  {
-    owner: 'James King',
-    lead: 'Chelsea Wilson (Chien Le)',
-    avatar: null,
-    showAvatar: true,
-    leadType: 'Prospect',
-    status: 'Stop',
-    stage: 'Cellphone',
-    contactName: 'Chelsea Wilson',
-    cellphone: '(991) 671-7177',
-    work: '(991)',
-  },
-  {
-    owner: 'Patricia Taylor',
-    lead: 'Christopher Smith (Hoang Phan)',
-    avatar: null,
-    showAvatar: false,
-    leadType: 'Prospect',
-    status: 'Closed',
-    stage: 'Get Quote',
-    contactName: 'Hoang Phan',
-    cellphone: '(578) 170-5251',
-    work: '(578)',
-  },
-];
+    const baseData = [
+      {
+        owner: 'John Doe',
+        lead: 'Sean Lewis (Huynh Tran)',
+        avatar: 'https://i.pravatar.cc/40?img=1',
+        showAvatar: true,
+        leadType: 'Prospect',
+        status: 'Cellphone',
+        stage: 'Cellphone',
+        contactName: 'Sean Lewis',
+        cellphone: '(872) 808-2228',
+        work: '(872)',
+      },
+      {
+        owner: 'Mary Johnson',
+        lead: 'Heather Phelps (Hanh Nguyen)',
+        avatar: null,
+        showAvatar: false,
+        leadType: 'Prospect',
+        status: 'Interest',
+        stage: 'Cellphone',
+        contactName: 'Hanh Nguyen',
+        cellphone: '(431) 863-3901',
+        work: '(431)',
+      },
+      {
+        owner: 'Robert White',
+        lead: 'Alice Scott (Anh Pham)',
+        avatar: 'https://i.pravatar.cc/40?img=3',
+        showAvatar: true,
+        leadType: 'Customer',
+        status: 'Follow now',
+        stage: 'Quote & Agent',
+        contactName: 'Alice Scott',
+        cellphone: '(515) 540-5844',
+        work: '(515)',
+      },
+      {
+        owner: 'David Lee',
+        lead: 'Kimberly Harper (Kim Phan)',
+        avatar: null,
+        showAvatar: true,
+        leadType: 'Customer',
+        status: 'Follow later',
+        stage: 'Get Quote',
+        contactName: 'Kim Phan',
+        cellphone: '(300) 284-5608',
+        work: '(300)',
+      },
+      {
+        owner: 'James King',
+        lead: 'Chelsea Wilson (Chien Le)',
+        avatar: null,
+        showAvatar: true,
+        leadType: 'Prospect',
+        status: 'Stop',
+        stage: 'Cellphone',
+        contactName: 'Chelsea Wilson',
+        cellphone: '(991) 671-7177',
+        work: '(991)',
+      },
+      {
+        owner: 'Patricia Taylor',
+        lead: 'Christopher Smith (Hoang Phan)',
+        avatar: null,
+        showAvatar: false,
+        leadType: 'Prospect',
+        status: 'Closed',
+        stage: 'Get Quote',
+        contactName: 'Hoang Phan',
+        cellphone: '(578) 170-5251',
+        work: '(578)',
+      },
+    ];
     const usedIds = new Set<string>();
 
     for (let i = 1; i <= 1500; i++) {
@@ -122,7 +124,7 @@ rows = 15;
           : null,
       });
     }
-      this.updateDisplayedLeads(); 
+    this.updateDisplayedLeads();
   }
 
   getStatusClass(status: string) {
@@ -163,17 +165,20 @@ rows = 15;
 
     return colors[name.charCodeAt(0) % colors.length];
   }
-updateDisplayedLeads() {
-  const start = this.currentPage * this.rows;
-  const end = start + this.rows;
+  updateDisplayedLeads() {
+    const start = this.currentPage * this.rows;
+    const end = start + this.rows;
 
-  this.displayedLeads = this.leads.slice(start, end);
-}
+    this.displayedLeads = this.leads.slice(start, end);
+  }
 
-onPageChange(event: { page: number; rows: number }) {
-  this.currentPage = event.page;
-  this.rows = event.rows;
-  this.updateDisplayedLeads();
-}
+  openLead(leadId: string) {
+    this.router.navigate(['/lead', leadId]);
+  }
 
+  onPageChange(event: { page: number; rows: number }) {
+    this.currentPage = event.page;
+    this.rows = event.rows;
+    this.updateDisplayedLeads();
+  }
 }
