@@ -1,0 +1,31 @@
+<div class="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm">
+
+  <!-- LEFT: Search -->
+  <div class="relative">
+    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#9ca3af]">
+      <i class="pi pi-search text-[0.8rem]"></i>
+    </span>
+    <input
+      id="task-search-input"
+      type="text"
+      placeholder="Search by task title or lead name..."
+      [(ngModel)]="searchValue"
+      (ngModelChange)="onSearch()"
+      class="min-w-[320px] rounded-xl border border-[#e5e7eb] py-2.5 pl-9 pr-4 text-sm outline-none focus:border-emerald-400 transition"
+    />
+  </div>
+
+  <!-- RIGHT: Actions -->
+  <div class="flex items-center gap-2">
+    <button
+      id="task-create-btn"
+      type="button"
+      (click)="onCreateTask()"
+      class="inline-flex h-9 items-center gap-2 rounded-lg bg-emerald-600 px-4 text-[14px] font-medium text-white shadow-sm hover:bg-emerald-700 transition"
+    >
+      <i class="pi pi-plus-circle text-[13px]"></i>
+      Create Task
+    </button>
+  </div>
+
+</div>

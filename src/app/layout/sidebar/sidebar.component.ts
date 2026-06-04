@@ -34,6 +34,13 @@ export class SidebarComponent {
       badge: 0,
     },
     {
+      title: 'Tasks',
+      icon: 'pi pi-check-square',
+      route: '/tasks',
+      type: 'class',
+      badge: 0,
+    },
+    {
       title: 'Reports',
       icon: 'pi pi-chart-bar',
       route: '/reports',

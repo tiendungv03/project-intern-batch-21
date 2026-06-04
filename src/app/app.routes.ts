@@ -51,6 +51,14 @@ export const routes: Routes = [
             (c) => c.ScheduleCalendarComponent,
           ),
       },
+
+      {
+        path: 'tasks',
+        loadComponent: () =>
+          import('./features/task-management/task-management.component').then(
+            (c) => c.TaskManagementComponent,
+          ),
+      },
     ],
     // canActivate:[authGuard]
   },

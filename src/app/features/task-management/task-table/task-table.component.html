@@ -1,0 +1,112 @@
+<div class="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-white shadow-sm">
+  <table class="w-full text-sm text-left">
+    <thead class="bg-gray-50 border-b border-[#e5e7eb]">
+      <tr class="text-[#172B4D] font-semibold text-[13px]">
+        <th class="px-4 py-3" style="min-width: 240px">Task Name</th>
+        <th class="px-4 py-3" style="min-width: 160px">Lead</th>
+        <th class="px-4 py-3" style="min-width: 120px">Type</th>
+        <th class="px-4 py-3" style="min-width: 110px">Priority</th>
+        <th class="px-4 py-3" style="min-width: 130px">Due Date</th>
+        <th class="px-4 py-3" style="min-width: 160px">Status</th>
+        <th class="px-4 py-3" style="min-width: 60px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="tasks.length > 0; else emptyState">
+        <tr
+          *ngFor="let task of tasks; let i = index"
+          class="border-b border-[#f3f4f6] text-[#172B4D] hover:bg-gray-50 transition"
+          [class.bg-red-50]="isOverdue(task)"
+        >
+          <!-- Task Name + Overdue badge -->
+          <td class="px-4 py-3">
+            <div class="flex flex-col gap-1">
+              <span class="font-medium text-[#172B4D]">{{ task.title }}</span>
+              <span
+                *ngIf="isOverdue(task)"
+                class="inline-flex w-fit items-center gap-1 rounded px-2 py-0.5 text-[11px] font-semibold bg-red-100 text-red-600"
+              >
+                <i class="pi pi-clock text-[10px]"></i>
+                Overdue
+              </span>
+            </div>
+          </td>
+
+          <!-- Lead -->
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+              <div
+                class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-semibold"
+                [ngClass]="getAvatarColor(task.lead)"
+              >
+                {{ getInitials(task.lead) }}
+              </div>
+              <span class="font-medium text-[#2563eb] cursor-pointer hover:underline">{{ task.lead }}</span>
+            </div>
+          </td>
+
+          <!-- Type -->
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-1.5 text-gray-600">
+              <i [ngClass]="getTypeIcon(task.type)" class="text-[12px]"></i>
+              <span>{{ task.type }}</span>
+            </div>
+          </td>
+
+          <!-- Priority -->
+          <td class="px-4 py-3">
+            <span
+              class="rounded px-2.5 py-1 text-[12px] font-semibold"
+              [ngClass]="getPriorityClass(task.priority)"
+            >
+              {{ task.priority }}
+            </span>
+          </td>
+
+          <!-- Due Date -->
+          <td class="px-4 py-3">
+            <span [class.text-red-600]="isOverdue(task)" [class.font-semibold]="isOverdue(task)">
+              {{ task.dueDate | date:'dd/MM/yyyy' }}
+            </span>
+          </td>
+
+          <!-- Status dropdown -->
+          <td class="px-4 py-3">
+            <select
+              [id]="'task-status-' + task.id"
+              [value]="task.status"
+              (change)="onStatusChange(task.id, $event)"
+              class="rounded-lg border px-2 py-1 text-[12px] font-semibold cursor-pointer outline-none transition"
+              [ngClass]="getStatusClass(task.status)"
+            >
+              <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+            </select>
+          </td>
+
+          <!-- Actions -->
+          <td class="px-4 py-3">
+            <i class="pi pi-ellipsis-v cursor-pointer text-gray-400 hover:text-gray-700 transition"></i>
+          </td>
+        </tr>
+      </ng-container>
+
+      <!-- Empty state -->
+      <ng-template #emptyState>
+        <tr>
+          <td colspan="7" class="py-16 text-center">
+            <div class="flex flex-col items-center gap-3 text-gray-400">
+              <i class="pi pi-check-square text-5xl"></i>
+              <p class="text-base font-medium">No tasks found</p>
+              <p class="text-sm">Try adjusting filters or create a new task.</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+
+  <!-- Footer count -->
+  <div class="flex items-center justify-between border-t border-[#e5e7eb] px-4 py-2.5 text-[13px] text-gray-500">
+    <span>Showing <strong class="text-[#172B4D]">{{ tasks.length }}</strong> task(s)</span>
+  </div>
+</div>

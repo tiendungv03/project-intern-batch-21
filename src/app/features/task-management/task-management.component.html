@@ -1,0 +1,67 @@
+<div class="p-5 bg-white min-h-full">
+
+  <!-- Page Header -->
+  <div class="mb-5 flex items-center justify-between">
+    <div>
+      <h2 class="text-xl font-semibold text-[#1f2937]">Task Management</h2>
+      <p class="text-[13px] text-gray-500 mt-0.5">Manage and track customer care tasks</p>
+    </div>
+  </div>
+
+  <!-- Summary Stats Cards -->
+  <div class="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+
+    <div class="flex flex-col gap-1 rounded-2xl border border-[#e5e7eb] bg-white px-4 py-3 shadow-sm">
+      <span class="text-[12px] font-medium text-gray-500 uppercase tracking-wide">Total</span>
+      <span class="text-2xl font-bold text-[#172B4D]">{{ totalTasks }}</span>
+    </div>
+
+    <div class="flex flex-col gap-1 rounded-2xl border border-yellow-200 bg-yellow-50 px-4 py-3 shadow-sm">
+      <span class="text-[12px] font-medium text-yellow-600 uppercase tracking-wide">Pending</span>
+      <span class="text-2xl font-bold text-yellow-700">{{ pendingCount }}</span>
+    </div>
+
+    <div class="flex flex-col gap-1 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 shadow-sm">
+      <span class="text-[12px] font-medium text-blue-600 uppercase tracking-wide">In Progress</span>
+      <span class="text-2xl font-bold text-blue-700">{{ inProgressCount }}</span>
+    </div>
+
+    <div class="flex flex-col gap-1 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 shadow-sm">
+      <span class="text-[12px] font-medium text-green-600 uppercase tracking-wide">Done</span>
+      <span class="text-2xl font-bold text-green-700">{{ doneCount }}</span>
+    </div>
+
+    <div class="flex flex-col gap-1 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 shadow-sm">
+      <span class="text-[12px] font-medium text-red-500 uppercase tracking-wide">Overdue</span>
+      <span class="text-2xl font-bold text-red-600">{{ overdueCount }}</span>
+    </div>
+
+  </div>
+
+  <!-- Main Card -->
+  <div class="overflow-hidden rounded-2xl bg-white shadow-sm">
+
+    <!-- Toolbar -->
+    <app-task-toolbar
+      (openModal)="showModal = true"
+      (searchChange)="onSearchChange($event)"
+    ></app-task-toolbar>
+
+    <!-- Filter Bar -->
+    <app-task-filter-bar
+      [filter]="filter"
+      (filterChange)="onFilterChange($event)"
+    ></app-task-filter-bar>
+
+    <!-- Table -->
+    <app-task-table [tasks]="filteredTasks"></app-task-table>
+
+  </div>
+
+</div>
+
+<!-- Create Task Modal -->
+<app-task-modal
+  *ngIf="showModal"
+  (close)="showModal = false"
+></app-task-modal>
